@@ -1,0 +1,62 @@
+{
+    "songs": [
+        {
+            "songId": 1,
+            "songName": "Amazing Grace",
+            "verses": [
+                "Amazing grace how sweet the sound That saved a wretch like me[ns]I once was lost, but now I'm found Was blind but now I see",
+                "'Twas grace that taught my heart to fear And grace my fears relieved[ns]How precious did that grace appear The hour I first believed",
+                "Through many dangers, toils, and snares I have already come[ns]This grace that brought me safe thus far And grace will lead me home",
+                "When we've been there ten thousand years Bright, shining as the sun[ns]We've no less days to sing God's praise Than when we first begun"
+            ]
+        },
+        {
+            "songId": 2,
+            "songName": "I'll Fly Away",
+            "verses": [
+                "Some glad morning when this life is over I'll fly away;[ns] To a home on God's celestial shore I'll fly away",
+                "Just a few more weary days and then I'll fly away;[ns] To a land where joy shall never end I'll fly away",
+                "Yeah, when I die, Hallelujah, by and by I'll fly away[END]"
+            ],
+            "chorus": "I'll fly away, oh, Glory I'll fly away; When I die, Hallelujah, by and by I'll fly away"
+        },
+        {
+            "songId": 3,
+            "songName": "At The Cross",
+            "verses": [
+                "Alas! and did my Savior bleed And did my Sovereign die? Would He devote that sacred head For sinners such as I?",
+                "Was it for crimes that I had done He groaned upon the tree? Amazing pity! grace unknown! And love beyond degree!",
+                "Well might the sun in darkness hide And shut his glories in, When Christ, the mighty Maker died, For man the creature’s sin.",
+                "Thus might I hide my blushing face While His dear cross appears, Dissolve my heart in thankfulness, And melt my eyes to tears.",
+                "But drops of grief can ne'er repay The debt of love I owe: Here, Lord, I give my self away 'Tis all that I can do."
+            ],
+            "chorus": "At the cross, at the cross Where I first saw the light, And the burden of my heart rolled away, It was there by faith I received my sight, And now I am happy all the day!"
+        },
+        {
+            "songId": 4,
+            "songName": "His Name Is Wonderful",
+            "verses": [
+                "His name is Wonderful, His name is Wonderful, His name is Wonderful, Jesus my Lord;",
+                ""
+            ],
+            "chorus": ""
+        }
+    ],
+    "backgroundImages": [
+        {
+            "imageId": 1,
+            "imageURL": "https://as2.ftcdn.net/v2/jpg/01/88/61/95/1000_F_188619585_COubXzZcYre07s051OnkOyXI6h7oQTTS.jpg"
+        },
+        {
+            "imageId": 2,
+            "imageURL": "https://static.vecteezy.com/system/resources/previews/003/240/610/original/abstract-water-color-background-free-vector.jpg"
+        }
+    ],
+    "logoSlideImages": [
+        {
+            "imageId": 1,
+            "name": "Wood Wall with Logo",
+            "base64": ""
+        }
+    ]
+}
