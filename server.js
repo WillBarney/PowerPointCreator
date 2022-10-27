@@ -68,14 +68,19 @@ router.get('/addsongslides/:songId/:verseString/:fontColor/:backgroundType/:colo
     for(let i in req.params.verseString) {
         let verse = song.verses[parseInt(req.params.verseString[i])-1];
         let nsCheck = nsPattern.exec(verse);
+        let ncCheck = verse.substring(verse.length-4);
+        console.log(ncCheck)
         let sArray = [];
-
-        console.log(nsCheck)
 
         if(nsCheck) {
             sArray.push(verse.substring(0,nsCheck.index));
-            sArray.push(verse.substring(nsCheck.index+4));
-            console.log(sArray)
+            let sVerse = verse.substring(nsCheck.index+4);
+            if(ncCheck == "[nc]") {
+                let rLFour = sVerse.substring(nsCheck.index,sVerse.length-4);
+                sArray.push(rLFour);
+            } else {
+                sArray.push(sVerse);
+            }
         } else {
             sArray.push(verse);
         }
@@ -87,11 +92,25 @@ router.get('/addsongslides/:songId/:verseString/:fontColor/:backgroundType/:colo
             slide.background = bckgrdOption;
         }
 
-        if(song.chorus && verse.substring(-5) != "[END]") {
-            let cslide = powerpoint.addSlide();
-            cslide.color = req.params.fontColor;
-            cslide.addText(song.chorus,baseSlideOptions);
-            cslide.background = bckgrdOption;
+        if(song.chorus && ncCheck != "[nc]") {
+            console.log("add chorus");
+            sArray = [];
+            nsCheck = nsPattern.exec(song.chorus);
+            console.log(nsCheck);
+
+            if(nsCheck) {
+                sArray.push(song.chorus.substring(0,nsCheck.index));
+                sArray.push(song.chorus.substring(nsCheck.index+4));
+            } else {
+                sArray.push(song.chorus);
+            }
+        }
+
+        for(let j in sArray) {
+            let slide = powerpoint.addSlide();
+            slide.color = req.params.fontColor;
+            slide.addText(sArray[j],baseSlideOptions);
+            slide.background = bckgrdOption;
         }
     }
 
