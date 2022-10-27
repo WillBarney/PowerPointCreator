@@ -16,7 +16,7 @@
             "verses": [
                 "Some glad morning when this life is over I'll fly away;[ns] To a home on God's celestial shore I'll fly away",
                 "Just a few more weary days and then I'll fly away;[ns] To a land where joy shall never end I'll fly away",
-                "Yeah, when I die, Hallelujah, by and by I'll fly away[END]"
+                "Yeah, when I die, Hallelujah, by and by I'll fly away[nc]"
             ],
             "chorus": "I'll fly away, oh, Glory I'll fly away; When I die, Hallelujah, by and by I'll fly away"
         },
@@ -24,13 +24,13 @@
             "songId": 3,
             "songName": "At The Cross",
             "verses": [
-                "Alas! and did my Savior bleed And did my Sovereign die? Would He devote that sacred head For sinners such as I?",
-                "Was it for crimes that I had done He groaned upon the tree? Amazing pity! grace unknown! And love beyond degree!",
-                "Well might the sun in darkness hide And shut his glories in, When Christ, the mighty Maker died, For man the creature’s sin.",
-                "Thus might I hide my blushing face While His dear cross appears, Dissolve my heart in thankfulness, And melt my eyes to tears.",
-                "But drops of grief can ne'er repay The debt of love I owe: Here, Lord, I give my self away 'Tis all that I can do."
+                "Alas! and did my Savior bleed And did my Sovereign die?[ns] Would He devote that sacred head For sinners such as I?",
+                "Was it for crimes that I had done He groaned upon the tree?[ns] Amazing pity! grace unknown! And love beyond degree!",
+                "Well might the sun in darkness hide And shut his glories in[ns] When Christ, the mighty Maker died, For man the creature’s sin.",
+                "Thus might I hide my blushing face While His dear cross appears[ns] Dissolve my heart in thankfulness, And melt my eyes to tears.",
+                "But drops of grief can ne'er repay The debt of love I owe;[ns] Here, Lord, I give my self away 'Tis all that I can do."
             ],
-            "chorus": "At the cross, at the cross Where I first saw the light, And the burden of my heart rolled away, It was there by faith I received my sight, And now I am happy all the day!"
+            "chorus": "At the cross, at the cross Where I first saw the light, And the burden of my heart rolled away[ns] It was there by faith I received my sight, And now I am happy all the day!"
         },
         {
             "songId": 4,
