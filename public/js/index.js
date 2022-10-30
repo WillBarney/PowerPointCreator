@@ -24,6 +24,11 @@ class App {
     }
 
     #initAppButtons() {
+        $("#dark-mode-btn").on("click",(evt) => {
+            console.log("dark mode on");
+            evt.currentTarget.parentElement.classList.add("dark-mode");
+        });
+
         $("#create-ppt-btn").on("click",(evt) => {
             this.#createPowerPoint();
         });

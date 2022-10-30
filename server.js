@@ -12,6 +12,7 @@ var powerpoint;
 var songs = [];
 
 var nsPattern = /\[ns\]/;
+var ncPattern = /\[nc\]/;
 
 var baseSlideOptions = {
     y: "50%",
@@ -31,8 +32,7 @@ var nameSlideOptions = {
 
 router.get('/createpowerpoint/:slidecount',(req,res) => {
     powerpoint = new pptxgen();
-    let slide = powerpoint.addSlide();
-    slide.background = {path: "./images/logowoodwall.png"};
+    addLogoSlide();
     res.status(200).send("PowerPoint Successfully Created");
 });
 
@@ -66,58 +66,73 @@ router.get('/addsongslides/:songId/:verseString/:fontColor/:backgroundType/:colo
     nameslide.background = bckgrdOption;
     //go through each verse and add a slide, add chorus slides if apply
     for(let i in req.params.verseString) {
+        //get verse
         let verse = song.verses[parseInt(req.params.verseString[i])-1];
+        //check if verse has a [ns] delimiter
         let nsCheck = nsPattern.exec(verse);
-        let ncCheck = verse.substring(verse.length-4);
+        //check if verse has a [nc] delimiter
+        let ncCheck = ncPattern.exec(verse);
         console.log(ncCheck)
-        let sArray = [];
+        //declare variables to store first and second half of verse/chorus
+        let firstHalf = "";
+        let secondHalf = "";
 
         if(nsCheck) {
-            sArray.push(verse.substring(0,nsCheck.index));
-            let sVerse = verse.substring(nsCheck.index+4);
-            if(ncCheck == "[nc]") {
-                let rLFour = sVerse.substring(nsCheck.index,sVerse.length-4);
-                sArray.push(rLFour);
+            //add first half of verse to sArray
+            firstHalf = (verse.substring(0,nsCheck.index));
+            //get second half of verse
+            if(ncCheck) {
+                secondHalf = verse.substring(nsCheck.index+4,ncCheck.index);
             } else {
-                sArray.push(sVerse);
+                secondHalf = verse.substring(nsCheck.index+4);
             }
         } else {
-            sArray.push(verse);
+            firstHalf = verse;
+            secondHalf = null;
         }
 
-        for(let j in sArray) {
-            let slide = powerpoint.addSlide();
-            slide.color = req.params.fontColor;
-            slide.addText(sArray[j],baseSlideOptions);
-            slide.background = bckgrdOption;
+        console.log(`first half of verse: ${firstHalf}`);
+        console.log(`second half of verse: ${secondHalf}`);
+
+        if(!secondHalf) {
+            //create slide for verse
+            createTextSlide(firstHalf,req.params.fontColor,bckgrdOption);
+        } else {
+            //create slide for first half of verse
+            createTextSlide(firstHalf,req.params.fontColor,bckgrdOption);
+            //create slide for second half of verse
+            createTextSlide(secondHalf,req.params.fontColor,bckgrdOption);
         }
 
-        if(song.chorus && ncCheck != "[nc]") {
+        if(ncCheck) {
+            console.log("don't add chorus");
+        } else {
             console.log("add chorus");
-            sArray = [];
             nsCheck = nsPattern.exec(song.chorus);
-            console.log(nsCheck);
 
             if(nsCheck) {
-                sArray.push(song.chorus.substring(0,nsCheck.index));
-                sArray.push(song.chorus.substring(nsCheck.index+4));
+                firstHalf = song.chorus.substring(0,nsCheck.index);
+                secondHalf = song.chorus.substring(nsCheck.index+4)
             } else {
-                sArray.push(song.chorus);
+                firstHalf = song.chorus;
+                secondHalf = null;
             }
         }
 
-        for(let j in sArray) {
-            let slide = powerpoint.addSlide();
-            slide.color = req.params.fontColor;
-            slide.addText(sArray[j],baseSlideOptions);
-            slide.background = bckgrdOption;
+        if(!secondHalf) {
+            //create slide for chorus
+            createTextSlide(firstHalf,req.params.fontColor,bckgrdOption);
+        } else {
+            //create slide for first half of chorus
+            createTextSlide(firstHalf,req.params.fontColor,bckgrdOption);
+            //create slide for second half of chorus
+            createTextSlide(secondHalf,req.params.fontColor,bckgrdOption);
         }
     }
 
     addCurrentSong(song.songName,req.params.verseString);
 
-    let slide = powerpoint.addSlide();
-    slide.background = {path: "./images/logowoodwall.png"};
+    addLogoSlide();
 
     res.status(200).send(`${song.songName} added to the powerpoint`);
 });
@@ -168,4 +183,16 @@ app.listen(PORT,() => {
 function addCurrentSong(name,verseString) {
     let songName = name.replace(/[^\w]/g,"").toLowerCase();
     songs.push({"name":songName,"verseString":verseString});
+}
+
+function addLogoSlide() {
+    let slide = powerpoint.addSlide();
+    slide.background = {path: "./images/logowoodwall.png"};
+}
+
+function createTextSlide(text,fontColor,bckgrdOptions) {
+    let slide = powerpoint.addSlide();
+    slide.color = fontColor;
+    slide.addText(text,baseSlideOptions);
+    slide.background = bckgrdOptions;
 }
