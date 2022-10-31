@@ -95,16 +95,22 @@ router.get('/addsongslides/:songId/:verseString/:fontColor/:backgroundType/:colo
         console.log(`second half of verse: ${secondHalf}`);
 
         if(!secondHalf) {
+            if(ncCheck) {
+                firstHalf = firstHalf.substring(0,ncCheck.index);
+            }
             //create slide for verse
             createTextSlide(firstHalf,req.params.fontColor,bckgrdOption);
         } else {
+            if(nsCheck) {
+                secondHalf = secondHalf.substring(0,secondHalf.length-4);
+            }
             //create slide for first half of verse
             createTextSlide(firstHalf,req.params.fontColor,bckgrdOption);
             //create slide for second half of verse
             createTextSlide(secondHalf,req.params.fontColor,bckgrdOption);
         }
 
-        if(ncCheck) {
+        if(ncCheck || !song.chorus) {
             console.log("don't add chorus");
         } else {
             console.log("add chorus");
@@ -117,16 +123,16 @@ router.get('/addsongslides/:songId/:verseString/:fontColor/:backgroundType/:colo
                 firstHalf = song.chorus;
                 secondHalf = null;
             }
-        }
 
-        if(!secondHalf) {
-            //create slide for chorus
-            createTextSlide(firstHalf,req.params.fontColor,bckgrdOption);
-        } else {
-            //create slide for first half of chorus
-            createTextSlide(firstHalf,req.params.fontColor,bckgrdOption);
-            //create slide for second half of chorus
-            createTextSlide(secondHalf,req.params.fontColor,bckgrdOption);
+            if(!secondHalf) {
+                //create slide for chorus
+                createTextSlide(firstHalf,req.params.fontColor,bckgrdOption);
+            } else {
+                //create slide for first half of chorus
+                createTextSlide(firstHalf,req.params.fontColor,bckgrdOption);
+                //create slide for second half of chorus
+                createTextSlide(secondHalf,req.params.fontColor,bckgrdOption);
+            }
         }
     }
 
