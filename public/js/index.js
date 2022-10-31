@@ -222,6 +222,7 @@ class App {
         request = await fetch(`/savepowerpoint`);
         response = await request.text();
         $(".current-songs").empty();
+        this.#currentSongs = [];
         console.log(response);
     }
 

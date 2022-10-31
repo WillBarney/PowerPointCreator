@@ -28,7 +28,7 @@ var nameSlideOptions = {
     w: "100%",
     align: "center",
     valign: "middle"
-}
+};
 
 router.get('/createpowerpoint/:slidecount',(req,res) => {
     powerpoint = new pptxgen();
@@ -72,7 +72,6 @@ router.get('/addsongslides/:songId/:verseString/:fontColor/:backgroundType/:colo
         let nsCheck = nsPattern.exec(verse);
         //check if verse has a [nc] delimiter
         let ncCheck = ncPattern.exec(verse);
-        console.log(ncCheck)
         //declare variables to store first and second half of verse/chorus
         let firstHalf = "";
         let secondHalf = "";
@@ -91,9 +90,6 @@ router.get('/addsongslides/:songId/:verseString/:fontColor/:backgroundType/:colo
             secondHalf = null;
         }
 
-        console.log(`first half of verse: ${firstHalf}`);
-        console.log(`second half of verse: ${secondHalf}`);
-
         if(!secondHalf) {
             if(ncCheck) {
                 firstHalf = firstHalf.substring(0,ncCheck.index);
@@ -101,7 +97,7 @@ router.get('/addsongslides/:songId/:verseString/:fontColor/:backgroundType/:colo
             //create slide for verse
             createTextSlide(firstHalf,req.params.fontColor,bckgrdOption);
         } else {
-            if(nsCheck) {
+            if(ncCheck) {
                 secondHalf = secondHalf.substring(0,secondHalf.length-4);
             }
             //create slide for first half of verse
@@ -145,7 +141,15 @@ router.get('/addsongslides/:songId/:verseString/:fontColor/:backgroundType/:colo
 
 router.get('/savepowerpoint',(req,res) => {
     console.log(songs);
-    let filename = `./powerpoints/${songs[0].name}VRS${songs[0].verseString}_${songs[1].name}VRS${songs[1].verseString}.pptx`;
+    let filename = `./powerpoints/`;
+    for(let i in songs) {
+        if(i <= 0) {
+            filename += `${songs[i].name}VRS${songs[i].verseString}`;
+        } else {
+            filename += `_${songs[i].name}VRS${songs[i].verseString}`;
+        }
+    }
+    console.log(filename);
     powerpoint.writeFile({ fileName: filename });
     powerpoint = null;
     songs = [];
@@ -153,11 +157,11 @@ router.get('/savepowerpoint',(req,res) => {
 });
 
 router.get('/getallsongs',(req,res) => {
-    let songs = [];
+    let allsongs = [];
     database.songs.filter((s) => {
-        songs.push({"id": s.songId,"name": s.songName,"verses": s.verses});
+        allsongs.push({"id": s.songId,"name": s.songName,"verses": s.verses});
     });
-    res.status(200).send(songs);
+    res.status(200).send(allsongs);
 });
 
 router.get('/getsongversecount/:songId',(req,res) => {
@@ -193,7 +197,11 @@ function addCurrentSong(name,verseString) {
 
 function addLogoSlide() {
     let slide = powerpoint.addSlide();
-    slide.background = {path: "./images/logowoodwall.png"};
+    slide.background = {path: "./images/logoimages/logowoodwall.png"};
+}
+
+function formatText(vOrC) {
+
 }
 
 function createTextSlide(text,fontColor,bckgrdOptions) {
