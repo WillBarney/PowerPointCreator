@@ -26,7 +26,11 @@ class App {
     #initAppButtons() {
         $("#dark-mode-btn").on("click",(evt) => {
             console.log("dark mode on");
-            evt.currentTarget.parentElement.classList.add("dark-mode");
+            evt.currentTarget.parentElement.parentElement.classList.add("dark-mode");
+        });
+
+        $("#new-image-btn").on("click",(evt) => {
+
         });
 
         $("#create-ppt-btn").on("click",(evt) => {
@@ -101,7 +105,8 @@ class App {
         const response = await request.json();
 
         for(let image in response) {
-            this.#imageBackgroundArea.children().append(`<div id="${response[image].imageId}" class="bckgrd-image" style="background-image: url(${response[image].imageURL})"></div>`);
+            let filepath = `'http://localhost:5000/images/backgrounds/${response[image]}'`;
+            this.#imageBackgroundArea.children().append(`<div id="${response[image]}" class="bckgrd-image" style="background-image: url(${filepath})"></div>`);
         }
 
         this.#imageBackgroundArea.children().children().on("click",(evt) => {
@@ -124,9 +129,7 @@ class App {
         this.#clearSongBtn.on("click",(evt) => {
             this.#clearAllFormFields();
         });
-        this.#previewSongBtn.on("click",(evt) => {
-            this.#showSongPreview();
-        });
+        this.#previewSongBtn.on("click",(evt) => {  });
     }
 
     #addSongToList() {
@@ -213,6 +216,7 @@ class App {
 
         for(let song in this.#currentSongs) {
             let s = this.#currentSongs[song];
+            console.log(s);
             let songurl = `/addsongslides/${s.id}/${s.verseString}/${s.fontColor}/${s.backgroundType}/${s.backgroundColor}/${s.backgroundImage}`;
             const request = await fetch(songurl);
             const response = await request.text();
@@ -231,23 +235,6 @@ class App {
         this.#verseSelect.empty();
         this.#backgroundTypeSelect.prop("selectedIndex",0);
         this.#backgroundTypeSelect.trigger("change");
-    }
-
-    #showSongPreview() {
-        //get selected background type
-        switch(parseInt(this.#backgroundTypeSelect.val())) {
-            case 1:
-                const color = $("#color-input").val();
-                $(".song-preview").css("background-color",color);
-                break;
-            case 2:
-                const imageSource = $(".bckgrd-image.active").css("background-image");
-                $(".song-preview").css("background-image",imageSource);
-                break;
-            default:
-                $(".song-preview").css("background","none");
-                break;
-        }
     }
 }
 

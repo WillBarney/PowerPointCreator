@@ -31,15 +31,6 @@
                 "But drops of grief can ne'er repay The debt of love I owe;[ns] Here, Lord, I give my self away 'Tis all that I can do."
             ],
             "chorus": "At the cross, at the cross Where I first saw the light, And the burden of my heart rolled away[ns] It was there by faith I received my sight, And now I am happy all the day!"
-        },
-        {
-            "songId": 4,
-            "songName": "His Name Is Wonderful",
-            "verses": [
-                "His name is Wonderful, His name is Wonderful, His name is Wonderful, Jesus my Lord;",
-                ""
-            ],
-            "chorus": ""
         }
     ],
     "backgroundImages": [
@@ -50,6 +41,10 @@
         {
             "imageId": 2,
             "imageURL": "https://static.vecteezy.com/system/resources/previews/003/240/610/original/abstract-water-color-background-free-vector.jpg"
+        },
+        {
+            "imageId": 3,
+            "imageURL": "https://marketplace.canva.com/MABDLZFDk40/1/thumbnail_large/canva-brown-paper-background-MABDLZFDk40.jpg"
         }
     ],
     "logoSlideImages": [
