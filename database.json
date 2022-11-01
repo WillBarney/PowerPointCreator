@@ -32,26 +32,5 @@
             ],
             "chorus": "At the cross, at the cross Where I first saw the light, And the burden of my heart rolled away[ns] It was there by faith I received my sight, And now I am happy all the day!"
         }
-    ],
-    "backgroundImages": [
-        {
-            "imageId": 1,
-            "imageURL": "https://as2.ftcdn.net/v2/jpg/01/88/61/95/1000_F_188619585_COubXzZcYre07s051OnkOyXI6h7oQTTS.jpg"
-        },
-        {
-            "imageId": 2,
-            "imageURL": "https://static.vecteezy.com/system/resources/previews/003/240/610/original/abstract-water-color-background-free-vector.jpg"
-        },
-        {
-            "imageId": 3,
-            "imageURL": "https://marketplace.canva.com/MABDLZFDk40/1/thumbnail_large/canva-brown-paper-background-MABDLZFDk40.jpg"
-        }
-    ],
-    "logoSlideImages": [
-        {
-            "imageId": 1,
-            "name": "Wood Wall with Logo",
-            "base64": ""
-        }
     ]
 }

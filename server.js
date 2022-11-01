@@ -123,7 +123,6 @@ router.get('/addsongslides/:songId/:verseString/:fontColor/:backgroundType/:colo
 
 router.get('/savepowerpoint',(req,res) => {
     try {
-        console.log(songs);
         let filename = `./powerpoints/`;
         for(let i in songs) {
             if(i <= 0) {
