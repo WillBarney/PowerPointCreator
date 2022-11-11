@@ -12,6 +12,10 @@
 
 <body>
     <div class="app">
+        <div class="menu-buttons">
+            <input id="dark-mode-btn" type="button" value="Dark">
+            <input id="new-image-btn" type="button" value="New Image">
+        </div>
         <div class="add-song">
             <div>
                 <h2>Add Song</h2>
@@ -38,21 +42,15 @@
                     <div class="background-image">
                         <div id="image-select" class="image-select"></div>
                     </div>
-                    <div>
+                    <div class="slide-buttons">
                         <input id="add-song-btn" type="submit" value="Add Song">
                         <input id="clear-song-btn" type="button" value="Clear">
                         <input id="preview-song-btn" type="button" value="Preview">
                     </div>
                 </form>
             </div>
-            <div>
-                <h2>Preview</h2>
-                <div class="song-preview">
-                    This is some example text for previewing. Please preview
-                </div>
-            </div>
         </div>
-        <div>
+        <div class="div-current-songs">
             <h2>Current Songs</h2>
             <div class="current-songs"></div>
             <input id="create-ppt-btn" type="button" value="Create PowerPoint">
