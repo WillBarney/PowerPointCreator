@@ -29,6 +29,14 @@ class App {
             evt.currentTarget.parentElement.parentElement.classList.add("dark-mode");
         });
 
+        $("#add-image-window-btn").on("click",(evt) => {
+            $(".add-image-window").attr("style","display: flex;");
+        });
+
+        $("#close-window-btn").on("click",(evt) => {
+            $(".add-image-window").attr("style","display: none;");
+        });
+
         $("#create-ppt-btn").on("click",(evt) => {
             this.#createPowerPoint();
         });

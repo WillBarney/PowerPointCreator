@@ -42,6 +42,38 @@ input[type="button"]:hover ,input[type="submit"]:hover {
     align-items: center;
 }
 
+.add-image-window {
+    position: absolute;
+    top: 20%;
+    border: 3px solid black;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 300px;
+}
+
+.close-window {
+    padding: 6px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.close-window:hover {
+    border: 1px solid black;
+}
+
+.add-image-window > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .app.dark-mode *{
     color: white;
     border-color: white;
@@ -92,11 +124,13 @@ form select {
 }
 
 .color-select,.image-select {
+    margin: 10px;
     display: none;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    max-width: 300px;
 }
 
 .image-select > * {
