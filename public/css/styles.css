@@ -35,6 +35,13 @@ input[type="button"]:hover ,input[type="submit"]:hover {
     height: 100%;
 }
 
+.menu-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .app.dark-mode *{
     color: white;
     border-color: white;

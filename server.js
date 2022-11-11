@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload = require('express-fileupload');
 var fs = require('fs');
 var pptxgen = require('pptxgenjs');
 const router = express.Router();
@@ -13,6 +14,16 @@ var songs = [];
 
 var nsPattern = /\[ns\]/;
 var ncPattern = /\[nc\]/;
+
+app.use(fileUpload());
+
+router.post("/upload",(req,res) => {
+    // Log the files to the console
+    console.log(req.files);
+
+    // All good
+    res.sendStatus(200);
+});
 
 router.get('/createpowerpoint/:slidecount',(req,res) => {
     powerpoint = new pptxgen();
