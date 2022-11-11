@@ -29,15 +29,6 @@ class App {
             evt.currentTarget.parentElement.parentElement.classList.add("dark-mode");
         });
 
-        $("#image-file-input").on("change",(evt) => {
-            const selectedFile = $("#image-file-input").prop("files");
-            console.log(selectedFile);
-        });
-
-        $("#new-image-btn").on("click",(evt) => {
-            $("#image-file-input").trigger("click");
-        });
-
         $("#create-ppt-btn").on("click",(evt) => {
             this.#createPowerPoint();
         });

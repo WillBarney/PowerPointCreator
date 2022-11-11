@@ -21,8 +21,14 @@ router.post("/upload",(req,res) => {
     // Log the files to the console
     console.log(req.files);
 
+    const { image } = req.files;
+
+    if(!image) return res.status(400).send("Unable to upload image");
+
+    image.mv(`${__dirname}/public/images/backgrounds/${image.name}`);
+
     // All good
-    res.sendStatus(200);
+    res.status(200).send("image uploaded");
 });
 
 router.get('/createpowerpoint/:slidecount',(req,res) => {
