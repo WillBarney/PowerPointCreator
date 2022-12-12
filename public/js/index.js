@@ -37,12 +37,24 @@ class App {
             $(".add-image-window").attr("style","display: none;");
         });
 
+        this.#initAddSongWindow();
+
+        $("#create-ppt-btn").on("click",(evt) => {
+            this.#createPowerPoint();
+        });
+    }
+
+    #initAddSongWindow() {
         $("#add-song-window-btn").on("click",(evt) => {
             $(".add-song-window").css("display","flex");
         });
 
-        $("#create-ppt-btn").on("click",(evt) => {
-            this.#createPowerPoint();
+        $(".add-song-window #close-window-btn").on("click",(evt) => {
+            $(".add-song-window").css("display","none");
+        });
+
+        $("#add-verse-btn").on("click",(evt) => {
+            $(".add-verse-window").css("display","flex");
         });
     }
 

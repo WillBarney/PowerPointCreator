@@ -42,7 +42,11 @@ input[type="button"]:hover ,input[type="submit"]:hover {
     align-items: center;
 }
 
-.add-image-window, .add-song-window {
+input[type="button"].close-window:hover {
+    background-color: red;
+}
+
+.add-image-window, .add-song-window, .add-verse-window {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -52,11 +56,6 @@ input[type="button"]:hover ,input[type="submit"]:hover {
     background-color: white;
     display: flex;
     flex-direction: column;
-    
-}
-
-input[type="button"].close-window:hover {
-    background-color: red;
 }
 
 .add-image-window {
@@ -78,6 +77,11 @@ input[type="button"].close-window:hover {
     width: 500px;
 }
 
+.add-verse-window {
+    height: 50%;
+    width: 500px;
+}
+
 .window-toolbar {
     border-bottom: 3px solid black;
     border-radius: 10px 10px 0 0;
@@ -93,6 +97,20 @@ input[type="button"].close-window:hover {
 
 .window-toolbar > #close-window-btn {
     margin-left: auto;
+}
+
+.song-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.song-content > div:nth-child(1),.song-content > div:nth-child(3) {
+    flex: 2;
+}
+
+.song-content > div:nth-child(2) {
+    flex: 1;
 }
 
 .app.dark-mode *{
