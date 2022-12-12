@@ -15,14 +15,7 @@
         <div class="menu-buttons">
             <input id="dark-mode-btn" type="button" value="Dark">
             <input id="add-image-window-btn" type="button" value="Add Image">
-            <div class="add-image-window" style="display: none;">
-                <div id="close-window-btn" class="close-window">X</div>
-                <img id="uploaded-img" style="margin: 10px; height: 150px; width: 150px;">
-                <form action="/upload" method="post" enctype="multipart/form-data">
-                    <input type="file" name="image" required>
-                    <input type="submit" value="Add Image"/>
-                </form>
-            </div>
+            <input id="add-song-window-btn" type="button" value="Add Song">
         </div>
         <div class="add-song">
             <div>
@@ -62,6 +55,22 @@
             <h2>Current Songs</h2>
             <div class="current-songs"></div>
             <input id="create-ppt-btn" type="button" value="Create PowerPoint">
+        </div>
+    </div>
+
+    <div class="add-image-window" style="display: none;">
+        <input id="close-window-btn" class="close-window" type="button" value="X">
+        <img id="uploaded-img" style="margin: 10px; height: 150px; width: 150px;">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" required>
+            <input type="submit" value="Add Image"/>
+        </form>
+    </div>
+
+    <div class="add-song-window" style="display: none;">
+        <div class="window-toolbar">
+            <input id="next-line-btn" type="button" value="Next Line">
+            <input id="close-window-btn" class="close-window" type="button" value="X">
         </div>
     </div>
 

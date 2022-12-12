@@ -37,6 +37,10 @@ class App {
             $(".add-image-window").attr("style","display: none;");
         });
 
+        $("#add-song-window-btn").on("click",(evt) => {
+            $(".add-song-window").css("display","flex");
+        });
+
         $("#create-ppt-btn").on("click",(evt) => {
             this.#createPowerPoint();
         });

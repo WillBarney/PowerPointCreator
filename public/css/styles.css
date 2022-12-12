@@ -42,29 +42,28 @@ input[type="button"]:hover ,input[type="submit"]:hover {
     align-items: center;
 }
 
-.add-image-window {
+.add-image-window, .add-song-window {
     position: absolute;
-    top: 20%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     border: 3px solid black;
     border-radius: 10px;
     background-color: white;
     display: flex;
     flex-direction: column;
+    
+}
+
+input[type="button"].close-window:hover {
+    background-color: red;
+}
+
+.add-image-window {
     justify-content: center;
     align-items: center;
-    height: 300px;
+    height: 30%;
     width: 300px;
-}
-
-.close-window {
-    padding: 6px;
-    border: 1px solid transparent;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.close-window:hover {
-    border: 1px solid black;
 }
 
 .add-image-window > form {
@@ -72,6 +71,28 @@ input[type="button"]:hover ,input[type="submit"]:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.add-song-window {
+    height: 70%;
+    width: 500px;
+}
+
+.window-toolbar {
+    border-bottom: 3px solid black;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.window-toolbar > #next-line-btn {
+    margin-right: auto;
+}
+
+.window-toolbar > #close-window-btn {
+    margin-left: auto;
 }
 
 .app.dark-mode *{
