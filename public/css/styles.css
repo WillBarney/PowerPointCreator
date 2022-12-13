@@ -12,14 +12,21 @@ h2 {
     text-align: center;
 }
 
-input[type="button"],input[type="submit"] {
+input[type="button"], input[type="submit"], input[type="text"] {
     all: unset;
     margin: 5px;
     padding: 5px;
     border: 2px solid black;
     border-radius: 10px;
     text-align: center;
+}
+
+input[type="button"],input[type="submit"] {
     cursor: pointer;
+}
+
+input[type="text"] {
+    background-color: lightgray;
 }
 
 input[type="button"]:hover ,input[type="submit"]:hover {
@@ -46,7 +53,7 @@ input[type="button"].close-window:hover {
     background-color: red;
 }
 
-.add-image-window, .add-song-window, .add-verse-window, .add-line-window {
+.add-image-window, .add-song-window, .add-verse-window, .add-line-window, .add-chorus-window {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -117,12 +124,12 @@ input[type="button"].close-window:hover {
     height: 90%;
 }
 
-.add-verse-window {
+.add-verse-window, .add-chorus-window {
     height: 50%;
     width: 600px;
 }
 
-.add-verse-window .verse-lines > div {
+.add-verse-window .verse-lines > div,.add-chorus-window .chorus-lines > div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -142,8 +149,6 @@ input[type="button"].close-window:hover {
 }
 
 .add-line-window input[type="text"] {
-    padding: 2px;
-    border-radius: 5px;
     height: 100%;
 }
 

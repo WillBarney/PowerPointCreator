@@ -51,8 +51,24 @@ class App {
     }
 
     #initAllAddSongWidgets() {
+        this.#initAddSongWindow();
+        this.#initAddVerseWindow();
+        this.#initAddChorusWindow();
+        this.#initAddLineWindow();
+    }
+
+    #initAddSongWindow() {
         $("#add-song-window-btn").on("click",(evt) => {
             $(".add-song-window").css("display","flex");
+        });
+
+        $(".add-song-window #create-song-btn").on("click",(evt) => {
+            let songName = $("#song-name-input").val();
+            if(songName.length > 0) {
+                alert("Song must have a name in order to be created.");
+            } else {
+                this.#createNewSong(songName);
+            }
         });
 
         $(".add-song-window #close-window-btn").on("click",(evt) => {
@@ -63,6 +79,12 @@ class App {
             $(".add-verse-window").css("display","flex");
         });
 
+        $("#add-chorus-btn").on("click",(evt) => {
+            $(".add-chorus-window").css("display","flex");
+        });
+    }
+
+    #initAddVerseWindow() {
         $(".add-verse-window #add-verse-btn").on("click",(evt) => {
             //check if the verse has lines
             if($(".add-verse-window .verse-lines > div").children().length <= 0) {
@@ -74,6 +96,15 @@ class App {
             }
         });
 
+        $(".add-verse-window #new-slide-btn").on("click",(evt) => {
+            if($(".add-verse-window .verse-lines > div").find("div#new-slide").length == 0) {
+                this.#currentLines.push("[ns]");
+                this.#refreshVerseLines();
+            } else {
+                alert("This verse already has a new slide. Only one new slide is allowed per verse.");
+            }
+        });
+
         $(".add-verse-window .close-window").on("click",(evt) => {
             $(".add-verse-window").css("display","none");
         });
@@ -81,43 +112,17 @@ class App {
         $(".add-verse-window #add-line-btn").on("click",(evt) => {
             $(".add-line-window").css("display","flex");
         });
-
-        $(".add-line-window .close-window").on("click",(evt) => {
-            if($("#line-text-input").val().length > 0) {
-                if(confirm("The field has text entered. Are you sure you want to discard it?")) {
-                    $(".add-line-window").css("display","none");
-                }
-            } else {
-                $(".add-line-window").css("display","none");
-            }
-            $("#line-text-input").val("");
-        });
-
-        $(".add-line-window #add-line-btn").on("click",(evt) => {
-            //check if line-text-input has text
-            let lineText = $("#line-text-input").val();
-            if(lineText.length > 0) {
-                //if there is text, add line to verse, close and reset text input
-                this.#addLineToVerse(lineText);
-            } else {
-                //alert the user to add text to create a line
-                alert("To add a new line there must be text. Please add text to the line");
-            }
-        });
-    }
-
-    #addLineToVerse(lineText) {
-        this.#currentLines.push(lineText);
-        this.#refreshVerseLines();
-        $(".add-line-window #line-text-input").val("");
-        $(".add-line-window").css("display","none");
     }
 
     #createSongVerse() {
         let verseString = "";
         let lineLength = this.#currentLines.length;
         for(let i in this.#currentLines) {
-            verseString += `${this.#currentLines[i]}${lineLength-1 == i ? "" : "\n"}`;
+            if(this.#currentLines[i] == "[ns]") {
+                verseString += this.#currentLines[i];
+            } else {
+                verseString += `${this.#currentLines[i]}${lineLength-1 == i ? "" : "\n"}`;
+            }
         }
         console.log(verseString);
         //add verse to song verses, close add verse window
@@ -129,10 +134,88 @@ class App {
         this.#refreshVerseLines();
     }
 
+    #initAddChorusWindow() {
+        $(".add-chorus-window .close-window").on("click",(evt) => {
+            $(".add-chorus-window").css("display","none");
+        });
+
+        $(".add-chorus-window #add-line-btn").on("click",(evt) => {
+            $(".add-line-window").attr("id","chorus");
+            $(".add-line-window").css("display","flex");
+        });
+
+        $(".add-chorus-window #new-slide-btn").on("click",(evt) => {
+            if($(".add-chorus-window .verse-lines > div").find("div#new-slide").length == 0) {
+                this.#currentLines.push("[ns]");
+                this.#refreshChorusLines();
+            } else {
+                alert("The chorus already has a new slide. Only one new slide is allowed in the chorus.");
+            }
+        });
+    }
+
+    #initAddLineWindow() {
+        $(".add-line-window .close-window").on("click",(evt) => {
+            if($("#line-text-input").val().length > 0) {
+                if(confirm("The field has text entered. Are you sure you want to discard it?")) {
+                    $(".add-line-window").attr("id","");
+                    $(".add-line-window").css("display","none");
+                    $("#line-text-input").val("");
+                }
+            } else {
+                $(".add-line-window").attr("id","");
+                $(".add-line-window").css("display","none");
+                $("#line-text-input").val("");
+            }
+            
+        });
+
+        $(".add-line-window #add-line-btn").on("click",(evt) => {
+            //check if line-text-input has text
+            let lineText = $("#line-text-input").val();
+            if(lineText.length > 0) {
+                //if there is text, add line to verse, close and reset text input
+                this.#addLineToVerse(lineText,evt.currentTarget.parentElement.parentElement.id);
+            } else {
+                //alert the user to add text to create a line
+                alert("To add a new line there must be text. Please add text to the line");
+            }
+        });
+    }
+
+    #createNewSong(name) {
+        let data = {
+            "songName": name,
+            "verses": this.#currentVerses,
+            "chorus": this.#currentChorus,
+            "options": ""
+        }
+    }
+
+    #addLineToVerse(lineText,windowId) {
+        if(windowId == "chorus") {
+            this.#currentLines.push(lineText);
+            this.#refreshChorusLines();
+        } else {
+            this.#currentLines.push(lineText);
+            this.#refreshVerseLines();
+        }
+        
+        $(".add-line-window #line-text-input").val("");
+        $(".add-line-window").css("display","none");
+    }
+
     #refreshVerseLines() {
         $(".add-verse-window .verse-lines > div").empty();
         for(let i in this.#currentLines) {
-            $(".add-verse-window .verse-lines > div").append(`<div class='line-display'>${this.#currentLines[i]}</div>`);
+            $(".add-verse-window .verse-lines > div").append(`<div ${this.#currentLines[i] == "[ns]" ? "id='new-slide' style='background-color:lightgray'" : ""} class='line-display'>${this.#currentLines[i] == "[ns]" ? "New Slide" : this.#currentLines[i]}</div>`);
+        }
+    }
+
+    #refreshChorusLines() {
+        $(".add-chorus-window .chorus-lines > div").empty();
+        for(let i in this.#currentLines) {
+            $(".add-chorus-window .chorus-lines > div").append(`<div ${this.#currentLines[i] == "[ns]" ? "id='new-slide' style='background-color:lightgray'" : ""} class='line-display'>${this.#currentLines[i] == "[ns]" ? "New Slide" : this.#currentLines[i]}</div>`);
         }
     }
 
