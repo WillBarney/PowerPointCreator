@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div class="app">
+    <div class="first app">
         <div class="menu-buttons">
             <input id="dark-mode-btn" type="button" value="Dark">
             <input id="add-image-window-btn" type="button" value="Add Image">
@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <div class="add-image-window" style="display: none;">
+    <div class="second add-image-window" style="display: none;">
         <input id="close-window-btn" class="close-window" type="button" value="X">
         <img id="uploaded-img" style="margin: 10px; height: 150px; width: 150px;">
         <form action="/upload" method="post" enctype="multipart/form-data">
@@ -67,8 +67,9 @@
         </form>
     </div>
 
-    <div class="add-song-window" style="display: none;">
+    <div class="second add-song-window" style="display: none;">
         <div class="window-toolbar">
+            <input id="create-song-btn" type="button" value="Create Song">
             <input id="close-window-btn" class="close-window" type="button" value="X">
         </div>
         <input id="add-verse-btn" type="button" value="Add Verse">
@@ -89,11 +90,25 @@
         </div>
     </div>
 
-    <div class="add-verse-window" style="display: none;">
+    <div class="third add-verse-window" style="display: none;">
         <div class="window-toolbar">
-            <input id="next-line-btn" type="button" value="Next Line">
-            <input id="close-add-verse-btn" type="button" value="X">
+            <input id="add-verse-btn" type="button" value="Add Verse">
+            <input id="preview-verse-btn" type="button" value="Preview Verse">
+            <input id="close-add-verse-btn" class="close-window" type="button" value="X">
         </div>
+        <input id="add-line-btn" type="button" value="Add Line">
+        <div class="verse-lines">
+            <h2>Lines</h2>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="fourth add-line-window" style="display: none;">
+        <div class="window-toolbar">
+            <input id="add-line-btn" type="button" value="Add">
+            <input id="close-add-line-window" class="close-window" type="button" value="X">
+        </div>
+        <input id="line-text-input" placeholder="Line Text" type="text">
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>

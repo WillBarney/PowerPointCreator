@@ -12,6 +12,9 @@ class App {
     #previewSongBtn;
     //current songs
     #currentSongs;
+    #currentVerses;
+    #currentLines;
+    #currentChorus;
 
     constructor() {
         this.#initAll();
@@ -19,6 +22,9 @@ class App {
 
     #initAll() {
         this.#currentSongs = [];
+        this.#currentVerses = [];
+        this.#currentLines = [];
+        this.#currentChorus = "";
         this.#initAppButtons();
         this.#initSongForm();
     }
@@ -37,14 +43,14 @@ class App {
             $(".add-image-window").attr("style","display: none;");
         });
 
-        this.#initAddSongWindow();
+        this.#initAllAddSongWidgets();
 
         $("#create-ppt-btn").on("click",(evt) => {
             this.#createPowerPoint();
         });
     }
 
-    #initAddSongWindow() {
+    #initAllAddSongWidgets() {
         $("#add-song-window-btn").on("click",(evt) => {
             $(".add-song-window").css("display","flex");
         });
@@ -56,6 +62,85 @@ class App {
         $("#add-verse-btn").on("click",(evt) => {
             $(".add-verse-window").css("display","flex");
         });
+
+        $(".add-verse-window #add-verse-btn").on("click",(evt) => {
+            //check if the verse has lines
+            if($(".add-verse-window .verse-lines > div").children().length <= 0) {
+                //alert the user to add a line before they can add a verse
+                alert("No lines added to this verse yet. Please add a line to add this verse");
+            } else {
+                //create a verse for the song
+                this.#createSongVerse();
+            }
+        });
+
+        $(".add-verse-window .close-window").on("click",(evt) => {
+            $(".add-verse-window").css("display","none");
+        });
+
+        $(".add-verse-window #add-line-btn").on("click",(evt) => {
+            $(".add-line-window").css("display","flex");
+        });
+
+        $(".add-line-window .close-window").on("click",(evt) => {
+            if($("#line-text-input").val().length > 0) {
+                if(confirm("The field has text entered. Are you sure you want to discard it?")) {
+                    $(".add-line-window").css("display","none");
+                }
+            } else {
+                $(".add-line-window").css("display","none");
+            }
+            $("#line-text-input").val("");
+        });
+
+        $(".add-line-window #add-line-btn").on("click",(evt) => {
+            //check if line-text-input has text
+            let lineText = $("#line-text-input").val();
+            if(lineText.length > 0) {
+                //if there is text, add line to verse, close and reset text input
+                this.#addLineToVerse(lineText);
+            } else {
+                //alert the user to add text to create a line
+                alert("To add a new line there must be text. Please add text to the line");
+            }
+        });
+    }
+
+    #addLineToVerse(lineText) {
+        this.#currentLines.push(lineText);
+        this.#refreshVerseLines();
+        $(".add-line-window #line-text-input").val("");
+        $(".add-line-window").css("display","none");
+    }
+
+    #createSongVerse() {
+        let verseString = "";
+        let lineLength = this.#currentLines.length;
+        for(let i in this.#currentLines) {
+            verseString += `${this.#currentLines[i]}${lineLength-1 == i ? "" : "\n"}`;
+        }
+        console.log(verseString);
+        //add verse to song verses, close add verse window
+        this.#currentVerses.push(verseString);
+        this.#refreshSongVerses();
+        $(".add-verse-window").css("display","none");
+        //reset current lines for a new verse
+        this.#currentLines = [];
+        this.#refreshVerseLines();
+    }
+
+    #refreshVerseLines() {
+        $(".add-verse-window .verse-lines > div").empty();
+        for(let i in this.#currentLines) {
+            $(".add-verse-window .verse-lines > div").append(`<div class='line-display'>${this.#currentLines[i]}</div>`);
+        }
+    }
+
+    #refreshSongVerses() {
+        $(".add-song-window .current-verses > div").empty();
+        for(let i in this.#currentVerses) {
+            $(".add-song-window .current-verses > div").append(`<div class="verse-display">${this.#currentVerses[i]}</div>`);
+        }
     }
 
     #initSongForm() {

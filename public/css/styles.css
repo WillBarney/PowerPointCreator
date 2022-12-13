@@ -46,7 +46,7 @@ input[type="button"].close-window:hover {
     background-color: red;
 }
 
-.add-image-window, .add-song-window, .add-verse-window {
+.add-image-window, .add-song-window, .add-verse-window, .add-line-window {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -56,6 +56,19 @@ input[type="button"].close-window:hover {
     background-color: white;
     display: flex;
     flex-direction: column;
+}
+
+.window-toolbar {
+    border-bottom: 3px solid black;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.window-toolbar > .close-window {
+    margin-left: auto;
 }
 
 .add-image-window {
@@ -77,40 +90,61 @@ input[type="button"].close-window:hover {
     width: 500px;
 }
 
-.add-verse-window {
-    height: 50%;
-    width: 500px;
-}
-
-.window-toolbar {
-    border-bottom: 3px solid black;
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-}
-
-.window-toolbar > #next-line-btn {
-    margin-right: auto;
-}
-
-.window-toolbar > #close-window-btn {
-    margin-left: auto;
-}
-
 .song-content {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
+.song-content > div {
+    overflow-y: hidden;
+}
+
 .song-content > div:nth-child(1),.song-content > div:nth-child(3) {
-    flex: 2;
+    height: 40%;
 }
 
 .song-content > div:nth-child(2) {
-    flex: 1;
+    height: 20%;
+}
+
+.song-content > div > div {
+    text-align: center;
+    overflow-y: scroll;
+}
+
+.song-content > div:nth-child(1) > div,.song-content > div:nth-child(3) > div {
+    height: 90%;
+}
+
+.add-verse-window {
+    height: 50%;
+    width: 600px;
+}
+
+.add-verse-window .verse-lines > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.line-display,.verse-display {
+    margin: 2px;
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.add-line-window {
+    height: 10%;
+    width: 300px;
+}
+
+.add-line-window input[type="text"] {
+    padding: 2px;
+    border-radius: 5px;
+    height: 100%;
 }
 
 .app.dark-mode *{
