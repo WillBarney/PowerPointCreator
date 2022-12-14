@@ -26,6 +26,7 @@ class App {
         this.#currentChorus = "";
         this.#currentLines = [];
         this.#initAppButtons();
+        this.#initAllAddSongWidgets();
         this.#initSongForm();
     }
 
@@ -43,7 +44,13 @@ class App {
             $(".add-image-window").attr("style","display: none;");
         });
 
-        this.#initAllAddSongWidgets();
+        $("#help-window-btn").on("click",(evt) => {
+            $(".help-window").css("display","flex");
+        });
+
+        $(".help-window .close-window").on("click",(evt) => {
+            $(".help-window").css("display","none");
+        });
 
         $("#create-ppt-btn").on("click",(evt) => {
             this.#createPowerPoint();

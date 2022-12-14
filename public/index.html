@@ -16,6 +16,7 @@
             <input id="dark-mode-btn" type="button" value="Dark">
             <input id="add-image-window-btn" type="button" value="Add Image">
             <input id="add-song-window-btn" type="button" value="Add Song">
+            <button id="help-window-btn" style="padding: 5px 15px;"><i class="fa-solid fa-question"></i></button>
         </div>
         <div class="add-song">
             <div>
@@ -56,8 +57,23 @@
         </div>
     </div>
 
+    <div class="second help-window" style="display: none;">
+        <div class="window-toolbar">
+            <h3>Help</h3>
+            <div>
+                <input id="close-help-window-btn" class="close-window" type="button" value="X">
+            </div>
+        </div>
+        <a target="_blank">PowerPoint Creator Documentation</a>
+    </div>
+
     <div class="second add-image-window" style="display: none;">
-        <input id="close-window-btn" class="close-window" type="button" value="X">
+        <div class="window-toolbar">
+            <h3>Add Image</h3>
+            <div>
+                <input id="close-window-btn" class="close-window" type="button" value="X">
+            </div>
+        </div>
         <img id="uploaded-img" style="margin: 10px; height: 150px; width: 150px;">
         <form action="/upload" method="post" enctype="multipart/form-data">
             <input type="file" name="image" required>
@@ -67,8 +83,11 @@
 
     <div class="second add-song-window" style="display: none;">
         <div class="window-toolbar">
-            <input id="create-song-btn" type="button" value="Create Song">
-            <input id="close-window-btn" class="close-window" type="button" value="X">
+            <h3>Add Song</h3>
+            <div>
+                <input id="create-song-btn" type="button" value="Create Song">
+                <input id="close-window-btn" class="close-window" type="button" value="X">
+            </div>
         </div>
         <input id="song-name-input" placeholder="Song Name" type="text">
         <input id="add-verse-btn" type="button" value="Add Verse">
@@ -91,10 +110,13 @@
 
     <div class="third add-verse-window" style="display: none;">
         <div class="window-toolbar">
-            <input id="add-verse-btn" type="button" value="Add Verse">
-            <input id="preview-verse-btn" type="button" value="Preview Verse">
-            <input id="new-slide-btn" type="button" value="New Slide">
-            <input id="close-add-verse-btn" class="close-window" type="button" value="X">
+            <h3>Add Verse</h3>
+            <div>
+                <input id="add-verse-btn" type="button" value="Add Verse">
+                <input id="preview-verse-btn" type="button" value="Preview Verse">
+                <input id="new-slide-btn" type="button" value="New Slide">
+                <input id="close-add-verse-btn" class="close-window" type="button" value="X">
+            </div>
         </div>
         <input id="add-line-btn" type="button" value="Add Line">
         <div class="verse-lines">
@@ -105,10 +127,13 @@
 
     <div class="third add-chorus-window" style="display: none;">
         <div class="window-toolbar">
-            <input id="add-chorus-btn" type="button" value="Add Chorus">
-            <input id="preview-chorus-btn" type="button" value="Preview Chorus">
-            <input id="new-slide-btn" type="button" value="New Slide">
-            <input id="close-add-chorus-btn" class="close-window" type="button" value="X">
+            <h3>Add Chorus</h3>
+            <div>
+                <input id="add-chorus-btn" type="button" value="Add Chorus">
+                <input id="preview-chorus-btn" type="button" value="Preview Chorus">
+                <input id="new-slide-btn" type="button" value="New Slide">
+                <input id="close-add-chorus-btn" class="close-window" type="button" value="X">
+            </div>
         </div>
         <input id="add-line-btn" type="button" value="Add Line">
         <div class="chorus-lines">
@@ -119,8 +144,11 @@
 
     <div class="fourth add-line-window" style="display: none;">
         <div class="window-toolbar">
-            <input id="add-line-btn" type="button" value="Add">
-            <input id="close-add-line-window" class="close-window" type="button" value="X">
+            <h3>Add Line</h3>
+            <div>
+                <input id="add-line-btn" type="button" value="Add">
+                <input id="close-add-line-window" class="close-window" type="button" value="X">
+            </div>
         </div>
         <input id="line-text-input" placeholder="Line Text" type="text">
     </div>

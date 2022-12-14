@@ -6,13 +6,14 @@ html, body {
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 h2 {
     text-align: center;
 }
 
-input[type="button"], input[type="submit"], input[type="text"] {
+input[type="button"], input[type="submit"], input[type="text"], button {
     all: unset;
     margin: 5px;
     padding: 5px;
@@ -21,7 +22,7 @@ input[type="button"], input[type="submit"], input[type="text"] {
     text-align: center;
 }
 
-input[type="button"],input[type="submit"] {
+input[type="button"],input[type="submit"], button {
     cursor: pointer;
 }
 
@@ -29,7 +30,7 @@ input[type="text"] {
     background-color: lightgray;
 }
 
-input[type="button"]:hover ,input[type="submit"]:hover {
+input[type="button"]:hover ,input[type="submit"]:hover, button:hover {
     background-color: lightgray;
 }
 
@@ -53,7 +54,7 @@ input[type="button"].close-window:hover {
     background-color: red;
 }
 
-.add-image-window, .add-song-window, .add-verse-window, .add-line-window, .add-chorus-window {
+.help-window, .add-image-window, .add-song-window, .add-verse-window, .add-line-window, .add-chorus-window {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -74,8 +75,17 @@ input[type="button"].close-window:hover {
     width: 100%;
 }
 
-.window-toolbar > .close-window {
+.window-toolbar > h3 {
+    padding: 0 10px;
+}
+
+.window-toolbar > div {
     margin-left: auto;
+}
+
+.help-window {
+    height: 40%;
+    width: 400px;
 }
 
 .add-image-window {
