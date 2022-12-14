@@ -8,7 +8,8 @@
                 "'Twas grace that taught my heart to fear And grace my fears relieved[ns]How precious did that grace appear The hour I first believed",
                 "Through many dangers, toils, and snares I have already come[ns]This grace that brought me safe thus far And grace will lead me home",
                 "When we've been there ten thousand years Bright, shining as the sun[ns]We've no less days to sing God's praise Than when we first begun"
-            ]
+            ],
+            "chorus": ""
         },
         {
             "songId": 2,
@@ -31,6 +32,45 @@
                 "But drops of grief can ne'er repay The debt of love I owe;[ns] Here, Lord, I give my self away 'Tis all that I can do."
             ],
             "chorus": "At the cross, at the cross Where I first saw the light, And the burden of my heart rolled away[ns] It was there by faith I received my sight, And now I am happy all the day!"
+        },
+        {
+            "songId": 4,
+            "songName": "Testing Song",
+            "verses": [
+                "sdfasasfa"
+            ],
+            "chorus": "fafsdsfafsd"
+        },
+        {
+            "songId": 5,
+            "songName": "Testing Another Song",
+            "verses": [
+                "test line 1\n[ns]test line 2\ntest line 3"
+            ],
+            "chorus": "test line 1\ntest line 2\n[ns]test line 3\n[ns][ns][ns][ns]"
+        },
+        {
+            "songId": 6,
+            "songName": "Testing Song 4",
+            "verses": [
+                "dsfasffsaf\n[ns]sdfsdaffsfa"
+            ],
+            "chorus": "sdfaffaf\n[ns]sfasfdsfdas"
+        },
+        {
+            "songId": 7,
+            "songName": "Testing Song 15",
+            "verses": [
+                "Testing line [ns]testing line 2"
+            ],
+            "chorus": ""
+        },
+        {
+            "songId": 8,
+            "songName": "For Real Testing Song",
+            "verses": [
+                "This is a testing line\nWe are testing once again[ns]testing on this line\nfinal test on this line"
+            ]
         }
     ]
 }
