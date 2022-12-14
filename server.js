@@ -34,8 +34,6 @@ router.post("/upload",(req,res) => {
 });
 
 router.post("/addsong",(req,res) => {
-    console.log(req.body);
-
     let songData = {};
     songData.songId = database.songs.length+1;
     songData.songName = req.body.songName;

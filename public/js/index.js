@@ -125,7 +125,17 @@ class App {
         });
 
         $(".add-verse-window .close-window").on("click",(evt) => {
-            $(".add-verse-window").css("display","none");
+            if($(".add-verse-window .verse-lines > div").children().length > 0) {
+                if(confirm("This verse is still in progress and has lines. Are you sure you want to discard?")) {
+                    this.#currentLines = [];
+                    this.#refreshVerseLines();
+                    $(".add-verse-window").css("display","none");
+                }
+            } else {
+                this.#currentLines = [];
+                this.#refreshVerseLines();
+                $(".add-verse-window").css("display","none");
+            }
         });
 
         $(".add-verse-window #add-line-btn").on("click",(evt) => {
@@ -144,7 +154,6 @@ class App {
                 verseString += `${this.#currentLines[i]}${lineLength-1 == i ? "" : "\n"}`;
             }
         }
-        console.log(verseString);
         //add verse to song verses, close add verse window
         this.#currentVerses.push(verseString);
         this.#refreshSongVerses();
@@ -156,7 +165,18 @@ class App {
 
     #initAddChorusWindow() {
         $(".add-chorus-window .close-window").on("click",(evt) => {
-            $(".add-chorus-window").css("display","none");
+            if($(".add-chorus-window .chorus-lines > div").children().length > 0) {
+                if(confirm("The chorus is still in progress and has lines. Are you sure you want to discard?")) {
+                    this.#currentLines = [];
+                    this.#refreshChorusLines();
+                    $(".add-chorus-window").css("display","none");
+                }
+            } else {
+                this.#currentLines = [];
+                this.#refreshChorusLines();
+                $(".add-chorus-window").css("display","none");
+            }
+            
         });
 
         $(".add-chorus-window #add-line-btn").on("click",(evt) => {
@@ -196,7 +216,6 @@ class App {
                 chorusString += `${this.#currentLines[i]}${lineLength-1 == i ? "" : "\n"}`;
             }
         }
-        console.log(chorusString);
         //add chorus to song, close add chorus window
         this.#currentChorus = chorusString;
         this.#refreshSongChorus();
@@ -484,22 +503,21 @@ class App {
     async #createPowerPoint() {
         let request = await fetch(`/createpowerpoint/${this.#currentSongs.length}`);
         let response = await request.text();
-        console.log(response);
 
         for(let song in this.#currentSongs) {
             let s = this.#currentSongs[song];
-            console.log(s);
             let songurl = `/addsongslides/${s.id}/${s.verseString}/${s.fontColor}/${s.backgroundType}/${s.backgroundColor}/${s.backgroundImage}`;
             const request = await fetch(songurl);
             const response = await request.text();
-            console.log(response);
         }
 
         request = await fetch(`/savepowerpoint`);
         response = await request.text();
-        $(".current-songs").empty();
-        this.#currentSongs = [];
-        console.log(response);
+        if(request.ok) {
+            alert("PowerPoint Successfully Created!");
+            $(".current-songs").empty();
+            this.#currentSongs = [];
+        }
     }
 
     #clearAllFormFields() {
