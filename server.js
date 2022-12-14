@@ -2,6 +2,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 var fs = require('fs');
 var pptxgen = require('pptxgenjs');
+var bodyparser = require("body-parser");
 const router = express.Router();
 const app = express();
 const PORT = 5000;
@@ -16,6 +17,7 @@ var nsPattern = /\[ns\]/;
 var ncPattern = /\[nc\]/;
 
 app.use(fileUpload());
+app.use(bodyparser.json());
 
 router.post("/upload",(req,res) => {
     // Log the files to the console
@@ -29,6 +31,19 @@ router.post("/upload",(req,res) => {
 
     // All good
     res.status(200).send("image uploaded");
+});
+
+router.post("/addsong",(req,res) => {
+    let songData = {};
+    songData.songId = database.songs.length+1;
+    songData.songName = req.body.songName;
+    songData.verses = req.body.verses;
+    songData.chorus = req.body.chorus;
+    
+    database.songs.push(songData);
+    writeToDatabase();
+
+    res.sendStatus(200);
 });
 
 router.get('/createpowerpoint/:slidecount',(req,res) => {
@@ -230,4 +245,13 @@ function createTextSlide(text,fontColor,bckgrdOptions) {
         color: fontColor
     });
     slide.background = bckgrdOptions;
+}
+
+function writeToDatabase() {
+    fs.writeFile(dbPath,JSON.stringify(database,null,4),(err) => {
+        if (err) throw err; 
+        else {
+            return null;
+        }
+    });
 }

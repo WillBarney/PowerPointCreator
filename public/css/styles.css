@@ -12,14 +12,21 @@ h2 {
     text-align: center;
 }
 
-input[type="button"],input[type="submit"] {
+input[type="button"], input[type="submit"], input[type="text"] {
     all: unset;
     margin: 5px;
     padding: 5px;
     border: 2px solid black;
     border-radius: 10px;
     text-align: center;
+}
+
+input[type="button"],input[type="submit"] {
     cursor: pointer;
+}
+
+input[type="text"] {
+    background-color: lightgray;
 }
 
 input[type="button"]:hover ,input[type="submit"]:hover {
@@ -42,29 +49,40 @@ input[type="button"]:hover ,input[type="submit"]:hover {
     align-items: center;
 }
 
-.add-image-window {
+input[type="button"].close-window:hover {
+    background-color: red;
+}
+
+.add-image-window, .add-song-window, .add-verse-window, .add-line-window, .add-chorus-window {
     position: absolute;
-    top: 20%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     border: 3px solid black;
     border-radius: 10px;
     background-color: white;
     display: flex;
     flex-direction: column;
+}
+
+.window-toolbar {
+    border-bottom: 3px solid black;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.window-toolbar > .close-window {
+    margin-left: auto;
+}
+
+.add-image-window {
     justify-content: center;
     align-items: center;
-    height: 300px;
+    height: 30%;
     width: 300px;
-}
-
-.close-window {
-    padding: 6px;
-    border: 1px solid transparent;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.close-window:hover {
-    border: 1px solid black;
 }
 
 .add-image-window > form {
@@ -72,6 +90,66 @@ input[type="button"]:hover ,input[type="submit"]:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.add-song-window {
+    height: 70%;
+    width: 500px;
+}
+
+.song-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.song-content > div {
+    overflow-y: hidden;
+}
+
+.song-content > div:nth-child(1),.song-content > div:nth-child(3) {
+    height: 40%;
+}
+
+.song-content > div:nth-child(2) {
+    height: 20%;
+}
+
+.song-content > div > div {
+    text-align: center;
+    overflow-y: scroll;
+}
+
+.song-content > div:nth-child(1) > div,.song-content > div:nth-child(3) > div {
+    height: 90%;
+}
+
+.add-verse-window, .add-chorus-window {
+    height: 50%;
+    width: 600px;
+}
+
+.add-verse-window .verse-lines > div,.add-chorus-window .chorus-lines > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.line-display,.verse-display {
+    margin: 2px;
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.add-line-window {
+    height: 10%;
+    width: 300px;
+}
+
+.add-line-window input[type="text"] {
+    height: 100%;
 }
 
 .app.dark-mode *{

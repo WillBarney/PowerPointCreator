@@ -10,15 +10,21 @@ class App {
     #addSongBtn;
     #clearSongBtn;
     #previewSongBtn;
-    //current songs
+    
     #currentSongs;
-
+    #currentVerses;
+    #currentChorus;
+    #currentLines;
+    
     constructor() {
         this.#initAll();
     }
 
     #initAll() {
         this.#currentSongs = [];
+        this.#currentVerses = [];
+        this.#currentChorus = "";
+        this.#currentLines = [];
         this.#initAppButtons();
         this.#initSongForm();
     }
@@ -37,9 +43,287 @@ class App {
             $(".add-image-window").attr("style","display: none;");
         });
 
+        this.#initAllAddSongWidgets();
+
         $("#create-ppt-btn").on("click",(evt) => {
             this.#createPowerPoint();
         });
+    }
+
+    #initAllAddSongWidgets() {
+        this.#initAddSongWindow();
+        this.#initAddVerseWindow();
+        this.#initAddChorusWindow();
+        this.#initAddLineWindow();
+    }
+
+    #initAddSongWindow() {
+        $("#add-song-window-btn").on("click",(evt) => {
+            $(".add-song-window").css("display","flex");
+        });
+
+        $(".add-song-window #close-window-btn").on("click",(evt) => {
+            if($(".add-song-window .current-verses > div").children().length > 0 || $(".add-song-window .current-chorus > div").children().length > 0) {
+                if(confirm("This song current has a verse/chorus. Are you sure you want to discard?")) {
+                    $(".add-song-window").css("display","none");
+                    this.#currentVerses = [];
+                    this.#refreshSongVerses();
+                    this.#currentChorus = undefined;
+                    this.#refreshSongChorus();
+                }
+            } else {
+                $(".add-song-window").css("display","none");
+                this.#currentVerses = [];
+                this.#refreshSongVerses();
+                this.#currentChorus = undefined;
+                this.#refreshSongChorus();
+            }
+        });
+
+        $("#add-verse-btn").on("click",(evt) => {
+            $(".add-verse-window").css("display","flex");
+        });
+
+        $("#add-chorus-btn").on("click",(evt) => {
+            if($(".add-song-window .current-chorus > div").children().length > 0) {
+                alert("Song already has a chorus. A song can only have one chorus.")
+            } else { 
+                $(".add-chorus-window").css("display","flex");
+            }
+        });
+
+        $("#create-song-btn").on("click",(evt) => {
+            if(!$("#song-name-input").val()) {
+                alert("The song must have a name. Please enter a name.")
+            } else if(this.#currentVerses.length <= 0) {
+                alert("The song must have at least one verse to be created. Please add a verse.");
+            } else {
+                this.#createNewSong($("#song-name-input").val());
+            }
+        });
+    }
+
+    #initAddVerseWindow() {
+        $(".add-verse-window #add-verse-btn").on("click",(evt) => {
+            //check if the verse has lines
+            if($(".add-verse-window .verse-lines > div").children().length <= 0) {
+                //alert the user to add a line before they can add a verse
+                alert("No lines added to this verse yet. Please add a line to add this verse");
+            } else {
+                //create a verse for the song
+                this.#createSongVerse();
+            }
+        });
+
+        $(".add-verse-window #new-slide-btn").on("click",(evt) => {
+            if($(".add-verse-window .verse-lines > div").find("div#new-slide").length == 0) {
+                this.#currentLines.push("[ns]");
+                this.#refreshVerseLines();
+            } else {
+                alert("This verse already has a new slide. Only one new slide is allowed per verse.");
+            }
+        });
+
+        $(".add-verse-window .close-window").on("click",(evt) => {
+            if($(".add-verse-window .verse-lines > div").children().length > 0) {
+                if(confirm("This verse is still in progress and has lines. Are you sure you want to discard?")) {
+                    this.#currentLines = [];
+                    this.#refreshVerseLines();
+                    $(".add-verse-window").css("display","none");
+                }
+            } else {
+                this.#currentLines = [];
+                this.#refreshVerseLines();
+                $(".add-verse-window").css("display","none");
+            }
+        });
+
+        $(".add-verse-window #add-line-btn").on("click",(evt) => {
+            $(".add-line-window").css("display","flex");
+        });
+    }
+
+    #createSongVerse() {
+        let verseString = "";
+        let lineLength = this.#currentLines.length;
+        for(let i in this.#currentLines) {
+            if(this.#currentLines[i] == "[ns]") {
+                verseString = verseString.slice(0,-2);
+                verseString += this.#currentLines[i];
+            } else {
+                verseString += `${this.#currentLines[i]}${lineLength-1 == i ? "" : "\n"}`;
+            }
+        }
+        //add verse to song verses, close add verse window
+        this.#currentVerses.push(verseString);
+        this.#refreshSongVerses();
+        $(".add-verse-window").css("display","none");
+        //reset current lines for a new verse
+        this.#currentLines = [];
+        this.#refreshVerseLines();
+    }
+
+    #initAddChorusWindow() {
+        $(".add-chorus-window .close-window").on("click",(evt) => {
+            if($(".add-chorus-window .chorus-lines > div").children().length > 0) {
+                if(confirm("The chorus is still in progress and has lines. Are you sure you want to discard?")) {
+                    this.#currentLines = [];
+                    this.#refreshChorusLines();
+                    $(".add-chorus-window").css("display","none");
+                }
+            } else {
+                this.#currentLines = [];
+                this.#refreshChorusLines();
+                $(".add-chorus-window").css("display","none");
+            }
+            
+        });
+
+        $(".add-chorus-window #add-line-btn").on("click",(evt) => {
+            $(".add-line-window").attr("id","chorus");
+            $(".add-line-window").css("display","flex");
+        });
+
+        $(".add-chorus-window #new-slide-btn").on("click",(evt) => {
+            if($(".add-chorus-window .chorus-lines > div").find("div#new-slide").length == 0) {
+                this.#currentLines.push("[ns]");
+                this.#refreshChorusLines();
+            } else {
+                alert("The chorus already has a new slide. Only one new slide is allowed in the chorus.");
+            }
+        });
+
+        $(".add-chorus-window #add-chorus-btn").on("click",(evt) => {
+            //check if the chorus has lines
+            if($(".add-chorus-window .chorus-lines > div").children().length <= 0) {
+                //alert the user to add a line before they can add the chorus
+                alert("No lines added to the chorus yet. Please add a line to add the chorus");
+            } else {
+                //create a verse for the song
+                this.#createSongChorus();
+            }
+        });
+    }
+
+    #createSongChorus() {
+        let chorusString = "";
+        let lineLength = this.#currentLines.length;
+        for(let i in this.#currentLines) {
+            if(this.#currentLines[i] == "[ns]") {
+                chorusString = chorusString.slice(0,-2);
+                chorusString += this.#currentLines[i];
+            } else {
+                chorusString += `${this.#currentLines[i]}${lineLength-1 == i ? "" : "\n"}`;
+            }
+        }
+        //add chorus to song, close add chorus window
+        this.#currentChorus = chorusString;
+        this.#refreshSongChorus();
+        $(".add-chorus-window").css("display","none");
+        //reset current lines
+        this.#currentLines = [];
+        this.#refreshChorusLines();
+    }
+
+    #initAddLineWindow() {
+        $(".add-line-window .close-window").on("click",(evt) => {
+            if($("#line-text-input").val().length > 0) {
+                if(confirm("The field has text entered. Are you sure you want to discard it?")) {
+                    $(".add-line-window").attr("id","");
+                    $(".add-line-window").css("display","none");
+                    $("#line-text-input").val("");
+                }
+            } else {
+                $(".add-line-window").attr("id","");
+                $(".add-line-window").css("display","none");
+                $("#line-text-input").val("");
+            }
+            
+        });
+
+        $(".add-line-window #add-line-btn").on("click",(evt) => {
+            //check if line-text-input has text
+            let lineText = $("#line-text-input").val();
+            if(lineText.length > 0) {
+                //if there is text, add line to verse, close and reset text input
+                this.#addLine(lineText,evt.currentTarget.parentElement.parentElement.id);
+            } else {
+                //alert the user to add text to create a line
+                alert("To add a new line there must be text. Please add text to the line");
+            }
+        });
+    }
+
+    async #createNewSong(name) {
+        let data = {
+            "songName": name,
+            "verses": this.#currentVerses,
+            "chorus": this.#currentChorus,
+            "options": ""
+        }
+
+        let request = await fetch("/addsong",{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if(request.ok) {
+            alert("Song Successfully Added!");
+            this.#currentVerses = [];
+            this.#currentChorus = undefined;
+            this.#refreshSongVerses();
+            this.#refreshSongChorus();
+            $("#song-name-input").val("");
+            $(".add-song-window").css("display","none");
+
+            this.#getAllSongs();
+        }
+    }
+
+    #addLine(lineText,windowId) {
+        if(windowId == "chorus") {
+            this.#currentLines.push(lineText);
+            this.#refreshChorusLines();
+        } else {
+            this.#currentLines.push(lineText);
+            this.#refreshVerseLines();
+        }
+
+        $(".add-line-window").attr("id","");
+        $(".add-line-window #line-text-input").val("");
+        $(".add-line-window").css("display","none");
+    }
+
+    #refreshVerseLines() {
+        $(".add-verse-window .verse-lines > div").empty();
+        for(let i in this.#currentLines) {
+            $(".add-verse-window .verse-lines > div").append(`<div ${this.#currentLines[i] == "[ns]" ? "id='new-slide' style='background-color:lightgray'" : ""} class='line-display'>${this.#currentLines[i] == "[ns]" ? "New Slide" : this.#currentLines[i]}</div>`);
+        }
+    }
+
+    #refreshChorusLines() {
+        $(".add-chorus-window .chorus-lines > div").empty();
+        for(let i in this.#currentLines) {
+            $(".add-chorus-window .chorus-lines > div").append(`<div ${this.#currentLines[i] == "[ns]" ? "id='new-slide' style='background-color:lightgray'" : ""} class='line-display'>${this.#currentLines[i] == "[ns]" ? "New Slide" : this.#currentLines[i]}</div>`);
+        }
+    }
+
+    #refreshSongVerses() {
+        $(".add-song-window .current-verses > div").empty();
+        for(let i in this.#currentVerses) {
+            $(".add-song-window .current-verses > div").append(`<div class="verse-display">${this.#currentVerses[i]}</div>`);
+        }
+    }
+
+    #refreshSongChorus() {
+        $(".add-song-window .current-chorus > div").empty();
+        if(this.#currentChorus) {
+            $(".add-song-window .current-chorus > div").append(`<div class="verse-display">${this.#currentChorus}</div>`);
+        }
     }
 
     #initSongForm() {
@@ -63,6 +347,9 @@ class App {
     async #getAllSongs() {
         const request = await fetch(`/getallsongs`);
         const response = await request.json();
+
+        this.#songSelect.empty();
+        this.#songSelect.append("<option value=''></option>");
 
         for(let song in response) {
             this.#songSelect.append(`<option value="${response[song].id}">${response[song].name}</option>"`);
@@ -216,22 +503,21 @@ class App {
     async #createPowerPoint() {
         let request = await fetch(`/createpowerpoint/${this.#currentSongs.length}`);
         let response = await request.text();
-        console.log(response);
 
         for(let song in this.#currentSongs) {
             let s = this.#currentSongs[song];
-            console.log(s);
             let songurl = `/addsongslides/${s.id}/${s.verseString}/${s.fontColor}/${s.backgroundType}/${s.backgroundColor}/${s.backgroundImage}`;
             const request = await fetch(songurl);
             const response = await request.text();
-            console.log(response);
         }
 
         request = await fetch(`/savepowerpoint`);
         response = await request.text();
-        $(".current-songs").empty();
-        this.#currentSongs = [];
-        console.log(response);
+        if(request.ok) {
+            alert("PowerPoint Successfully Created!");
+            $(".current-songs").empty();
+            this.#currentSongs = [];
+        }
     }
 
     #clearAllFormFields() {
